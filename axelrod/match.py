@@ -30,7 +30,8 @@ class Match(object):
         match_attributes=None,
         reset=True,
         seed=None,
-        p_A=None
+        p_A=None,
+        mode=None
     ):
         """
         Parameters
@@ -97,6 +98,7 @@ class Match(object):
 
         self.players = list(players)
         self.reset = reset
+        self.mode = mode
 
     def set_seed(self, seed):
         """Sets a random seed for the Match, for reproducibility. Initializes
@@ -199,7 +201,7 @@ class Match(object):
             self.players[0].load_state() #note that this requires first player to be a QLearner or inherit from that class
             result = []
             self.game.change_game(0.5) #first game is random
-            
+
             # if self.game.RPST() == (32, 24, 10, 52):
             #     print("*A0")
             # else:
@@ -223,7 +225,8 @@ class Match(object):
                 #         newplayers.append(player)
                 #     self._players = newplayers
                 self.game.change_game(self.p_A)
-            #self.players[0].save_state()
+            if self.mode == 'train':
+                self.players[0].save_state()
 
             if self._cache_update_required:
                 self._cache[cache_key] = result

@@ -87,16 +87,16 @@ class RiskyQLearner(Player):
             return max(self.Qs[state], key=lambda x: self.Qs[state][x]) #change
         return self._random.random_choice()
 
-    def find_state(self, opponent: Player) -> str: 
+    def find_state(self, opponent: Player) -> str:
         """
         Finds the my_state (the opponents last n moves +
         its previous proportion of playing C) as a hashable state
         """
-        prob = "{:.1f}".format(opponent.cooperations)
-        action_str = actions_to_str(opponent.history[-self.memory_length :])
+        prob = "{:.1f}".format(opponent.cooperations/ len(opponent.history)) if len(opponent.history) > 0 else "0"
+        #action_str = actions_to_str(opponent.history[-self.memory_length :])
         change_prob = str(self.match_attributes["change_prob"])
         exp_coop_reward = str(self.match_attributes["exp_coop_reward"])
-        return action_str + prob + exp_coop_reward #CHANGED STATE
+        return prob + exp_coop_reward #CHANGED STATE
 
     def perform_q_learning( #glue state to action
         self, prev_state: str, state: str, action: Action, reward
@@ -139,7 +139,7 @@ class RiskyQLearner(Player):
                 keys += row
         if len(values) > 0:
             self.Qs = OrderedDict([(k,v) for k,v in zip(keys, dict)])
-        
+
         values = []
         keys = []
         with open('Vtable_values.csv', 'r') as read_obj:
@@ -150,7 +150,7 @@ class RiskyQLearner(Player):
             csv_reader = reader(read_obj)
             for row in csv_reader:
                 keys += row
-        
+
         if len(values) > 1:
             self.Vs = OrderedDict([(k, v) for k, v in zip(keys, values)])
 
@@ -178,7 +178,7 @@ class RiskyQLearner(Player):
         with open("Qtable_keys.csv", "w") as outfile:
             csvwriter = csv.writer(outfile)
             csvwriter.writerow(keys)
-        
+
         with open("Qtable_values.csv", "w") as outfile:
             csvwriter = csv.writer(outfile)
             csvwriter.writerow(values)
@@ -187,7 +187,7 @@ class RiskyQLearner(Player):
 
         for key, value in self.Vs.items():
             keys.append(key)
-            values.append(value)       
+            values.append(value)
 
         with open("Vtable_keys.csv", "w") as outfile:
             csvwriter = csv.writer(outfile)
@@ -213,9 +213,9 @@ class ArrogantQLearner(RiskyQLearner):
     discount_rate = 0.1
 
 class StochasticQLearner(RiskyQLearner):
-    """An algorithm choosing the probability to cooperate, p, instead of 
+    """An algorithm choosing the probability to cooperate, p, instead of
     choosing a definite action
-    
+
     This Q Learner should be more flexible and create more mixed strategies
     """
     name = "Stochastic QLearner"
@@ -259,7 +259,7 @@ class StochasticQLearner(RiskyQLearner):
         self.prev_action = action
         self.prev_prob = prob
         return action
-    
+
     def select_action(self, state: str) -> Action:
         """
         Selects the action based on the epsilon-soft policy
@@ -301,7 +301,7 @@ class StochasticQLearner(RiskyQLearner):
                 gather_ten_values = []
                 gather_ten_values.append(value)
         return dicts
-  
+
 class HesitantQLearner(RiskyQLearner):
     """A player who learns the best strategies through the q-learning algorithm.
 
