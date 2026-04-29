@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
             requirements.append(library)
 
 # Read in long description
-with open("README.rst", "r") as f:
+with open("old_README.rst", "r") as f:
     long_description = f.read()
 
 # Read in the version number
