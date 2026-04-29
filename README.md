@@ -204,6 +204,33 @@ cooperate → defect transitions increase as p_A rises
 initial actions do not eliminate this trend
 
 The superposition of two traits was however not observed with the training hyperparameters used. Future work will explore whether more extensive training or alternative algorithms can elicit this behavior.
+
+## Key Contributions
+- Extends traditional Iterated Prisoner’s Dilemma into a stochastic setting
+- Introduces uncertainty-driven strategic learning
+- Demonstrates emergence of human-like optimism/pessimism
+- Shows belief updating in reinforcement learning agents
+- Connects behavioral economics with reinforcement learning
+
+## Future Work
+
+We are currently exploring:
+
+- Deep Q-learning architectures
+- Attention mechanisms via feature weighting
+- Cross-training environment comparisons
+- Applications to algorithmic collusion and market behavior
+
+## Real-World Applications
+
+Understanding strategic learning under uncertainty has implications for:
+
+- algorithmic pricing
+- collusion
+- financial trading systems
+- autonomous negotiations
+- multi-agent coordination
+
 ## Citation
 If you use this code in your research, please cite:
 
