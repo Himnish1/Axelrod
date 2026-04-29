@@ -7,6 +7,10 @@ basic_tournament.csv
 test_outputs/*csv.summary
 test_outputs/*svg
 test_outputs/*cache
+Qtable_keys.csv
+Qtable_values.csv
+Vtable_keys.csv
+Vtable_values.csv
 
 # Mac Specific
 *.DS_Store
