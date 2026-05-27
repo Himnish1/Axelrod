@@ -198,10 +198,15 @@ The model successfully reproduces human-like strategic optimism:
 low p_A → majority cooperation
 high p_A → majority defection
 
+![Period 0 Cooperation Rates](pics/a8.png)
+
 **Period 1 Behavior**
 Agents update their beliefs after uncertainty resolves:
 cooperate → defect transitions increase as p_A rises
 initial actions do not eliminate this trend
+
+![Period 1 Switching Behavior](pics/a12.png)
+
 
 The superposition of two traits was however not observed with the training hyperparameters used. Future work will explore whether more extensive training or alternative algorithms can elicit this behavior.
 
